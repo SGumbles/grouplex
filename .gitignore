@@ -162,5 +162,6 @@ cython_debug/
 # VSCode
 *.code-workspace
 *.vscode
-# Bot Token
-*.tok
+
+# Don't tell our wives
+secrets.json
