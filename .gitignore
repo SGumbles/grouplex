@@ -165,3 +165,9 @@ cython_debug/
 
 # Don't tell our wives
 secrets.json
+
+# Secret notes our DAMN wives aren't going to see
+notes.txt
+
+# List of friends' servers our DAMN wives probably don't want us to access
+cached_friends.json
