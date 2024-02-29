@@ -25,6 +25,9 @@ You are a good husband and it's perfectly normal what you do with your friends.
 goodhusband@NoWivesPC:~$
 ```
 
+### Configure Discord for multiple clients
+The easiest way to run the bot is to just have another discord client open on your machine as the projectionist. To open multiple discord clients, you will need to start it with `--multi-instance` flag, which looks like this on my machine :  `C:\Users\GoodHusband\AppData\Local\Discord\Update.exe --processStart Discord.exe --process-start-args "--multi-instance"`. The easiest thing to do is change the discord shortcut by right clicking->Properties->Change what's in Target to the above.
+
 ### Running inside WSL
 You will need to do some fancy pants detective work to get the host IP address. This also applies if you're running the bot in a VM or something similar. 
 
