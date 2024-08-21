@@ -18,8 +18,8 @@ from playwright.async_api import async_playwright, Request, Playwright, Browser
 
 import logging
 logging.basicConfig(level=logging.DEBUG)
-logging.getLogger("urllib3.connectionpool").setLevel('INFO')
-logging.getLogger("asyncio").setLevel('INFO')
+# logging.getLogger("urllib3.connectionpool").setLevel('INFO')
+# logging.getLogger("asyncio").setLevel('INFO')
 logger = logging.getLogger("GrouPlexBot")
 
 ############################
@@ -129,13 +129,15 @@ def print_clients_and_exit():
 if not 'plex_client_name' in SECRETS:
 	print_clients_and_exit()
 	
-for server in PLEX_SERVER_POOL:
-	try:
-		PLEX_CLIENT = server.client(SECRETS['plex_client_name'])
-		if PLEX_CLIENT is not None:
-			break
-	except:
-		pass
+# for server in PLEX_SERVER_POOL:
+# 	try:
+# 		PLEX_CLIENT = server.client(SECRETS['plex_client_name'])
+# 		if PLEX_CLIENT is not None and len(PLEX_CLIENT.timelines(wait=5)) > 0:
+# 			break
+# 	except:
+# 		pass
+
+PLEX_CLIENT = PlexServer(SECRETS['plex_url'],SECRETS['plex_token']).client(SECRETS['plex_client_name'])
 
 if PLEX_CLIENT is None:
 	logger.fatal(f"Can't find client with name {SECRETS['plex_client_name']}")
@@ -194,14 +196,14 @@ class GroupPlex(commands.Bot):
 		asyncio.run_coroutine_threadsafe(self.run_play_queue(),asyncio.get_event_loop())
 	
 	def is_playing_media(self):
-		if PLEX_CLIENT.isPlayingMedia() is False:
+		if PLEX_CLIENT.isPlayingMedia() is True:
 			## Plex does this stupid thing where nothing will be playing but it says it's 'paused'
 			if PLEX_CLIENT.timeline.state == 'paused' and self._currently_playing is None:
 				return False
 			else:
 				return True
 		else:
-			return True
+			return False
 
 	async def run_play_queue(self):
 		while(self._should_run_play_queue):
